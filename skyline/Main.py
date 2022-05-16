@@ -1,8 +1,6 @@
 import pandas as pd
 import Preprocessing as prec
 import SkylineAlg 
-import pickle
-import json
 
 if __name__== "__main__":
 

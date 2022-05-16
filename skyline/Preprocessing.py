@@ -1,4 +1,3 @@
-from dataclasses import replace
 import pandas as pd
 import numpy as np
 
@@ -74,8 +73,8 @@ def SkylinePreprocess(df,people):
     df = df[df.accommodates == people ]
     df = df.drop('accommodates', axis=1)
 
-    price_range = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-    cut_bins_price = [0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 10000]
+    price_range = [1, 2, 3, 4, 5, 6, 7]
+    cut_bins_price = [0, 100, 200, 300, 400, 700, 1000, 10000]
     df['price_sky'] = pd.cut(df['daily_price'], bins=cut_bins_price, labels=price_range)
     df = df.drop('daily_price', axis=1)
 
