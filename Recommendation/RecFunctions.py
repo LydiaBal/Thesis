@@ -7,7 +7,7 @@ def cosineSim(user,df):
     for apartment in df:
         cosine = np.dot(user,apartment[1:])/(norm(user)*norm(apartment[1:]))
         apart_cosines.append((apartment[0],cosine))
-    apart_cosines.sort(reverse=True)
+    apart_cosines.sort(key = lambda x: x[1],reverse=True)
     return apart_cosines
 
 def ExtractInfo(df):

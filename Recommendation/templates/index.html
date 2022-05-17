@@ -1,64 +1,148 @@
 <html>
-    <!-- <style>
-        button {
-  background-color:yellow;
+<style>
+      br {
+    line-height: 8px;
+ }
+    label {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
-    </style>
-    <script>
-        function myScript(){
-            console.log('in script')
-        }
 
-    </script> -->
-    <h2 align="center">Choose at least 3 preferences</h2>
-    <form action="/results">
+/* Hide the browser's default checkbox */
+label input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
 
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 20em;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+label:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+label input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+label input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+label .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.submit {
+    border-radius: 4px;
+    border: none;
+    background-color: #008CBA; /* Green */
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+</style>
+<body align="center">
+    <h2>Choose at least 3 preferences</h2>
+    <form action="/results" >
+
+        <label for="action1">TV
         <input type="checkbox" id="action1" name="action1" value="TV">
-        <label for="action1">TV</label><br>
+        <span class="checkmark"></span>
+        </label><br>
 
+        <label for="action2">WiFi
         <input type="checkbox" id="action2" name="action2" value="WiFi">
-        <label for="action2">WiFi</label><br>
+        <span class="checkmark"></span>
+        </label><br>
 
+        <label for="action3">Air Condition
         <input type="checkbox" id="action3" name="action3" value="Air Condition">
-        <label for="action3">Air Condition</label><br>
+        <span class="checkmark"></span>
+        </label><br>
 
+        <label for="action4">Kitchen
         <input type="checkbox" id="action4" name="action4" value="Kitchen">
-        <label for="action4">Kitchen</label><br>
+        <span class="checkmark"></span>
+        </label><br>
 
+        <label for="action5">Breakfast
         <input type="checkbox" id="action5" name="action5" value="Breakfast">
-        <label for="action5">Breakfast</label><br>
+        <span class="checkmark"></span>
+        </label><br>
 
+        <label for="action6">Elevator
         <input type="checkbox" id="action6" name="action6" value="Elevator">
-        <label for="action6">Elevator</label><br>
+        <span class="checkmark"></span>
+        </label><br>
 
+        <label for="action7">Heating
         <input type="checkbox" id="action7" name="action7" value="Heating">
-        <label for="action7">Heating</label><br>
+        <span class="checkmark"></span>
+        </label><br>
 
+        <label for="action8">Washer
         <input type="checkbox" id="action8" name="action8" value="Washer">
-        <label for="action8">Washer</label><br>
+        <span class="checkmark"></span>
+        </label><br>
 
+        <label for="action9">Iron
         <input type="checkbox" id="action9" name="action9" value="Iron">
-        <label for="action9">Iron</label><br>
+        <span class="checkmark"></span>
+        </label><br>
 
+        <label for="action10">Luggage dropoff
         <input type="checkbox" id="action10" name="action10" value="Luggage dropoff">
-        <label for="action10">Luggage dropoff</label><br>
+        <span class="checkmark"></span>
+        </label><br>
 
+        <label for="action11">Smoking allowed
         <input type="checkbox" id="action11" name="action11" value="Smoking allowed">
-        <label for="action11">Smoking allowed</label><br>
+        <span class="checkmark"></span>
+        </label><br>
 
-        <input type="submit" value="Submit">
+        <input class="submit" type="submit" value="Submit">
       </form>
-        <!-- <form method="post" action="/">
-            <input type="submit" value="TV" name="action1">TV</input>
-            <input type="submit" value="WiFi" name="action1" />
-            <input type="submit" value="Air Condition" name="action1" />
-            <input type="submit" value="Kitchen" name="action1" />
-            <input type="submit" value="Breakfast" name="action1" />
-            <input type="submit" value="Elevator" name="action1" />
-            <input type="submit" value="Heating" name="action1" />
-            <input type="submit" value="Washer" name="action1" />
-            <input type="submit" value="Iron" name="action1" />
-            <input type="submit" value="Luggage dropoff" name="action1" />
-            <input type="submit" value="Smoking allowed" name="action1" />
-        </form> -->
+    </body>
 </html>
