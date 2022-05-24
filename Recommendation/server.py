@@ -25,7 +25,7 @@ def index():
 @app.route('/results', methods=['POST','GET'])
 def results():
 
-   global page
+   # global page
 
    newargs = request.args
    # Get user preferences
@@ -71,19 +71,27 @@ def results():
    # print(dfapartments)
    print('Apartments order', sortedapart)
    dfapartments.to_csv("sortedapartments.csv", index = False)
-   # get_rows = dfapartments.head(50)
+   return redirect(url_for('apartments'))
+
+@app.route('/apartments', methods=['POST','GET'])
+def apartments():
+   global page
+
+   dataset_name = "sortedapartments.csv"
+   dfapartments = pd.read_csv(dataset_name, encoding="ISO-8859-1", na_values="")
+
    if request.method == "POST":
       if request.form['action'] == 'next':
          page = page + 1
-         return redirect(url_for('results',**newargs))
+         return redirect(url_for('apartments'))
       elif request.form['action'] == 'prev':
          if page != 0:
             page = page - 1
-            return redirect(url_for('results',**newargs))
+            return redirect(url_for('apartments'))
 
-   get_rows = dfapartments[(15*page):(15*page + 15)]
+   get_rows = dfapartments[(13*page):(13*page + 13)]
 
-   return render_template('results.html', tables=[get_rows.to_html(classes='data',index = False)], titles=dfapartments.columns.values)
+   return render_template('apartments.html', tables=[get_rows.to_html(classes='data',index = False)], titles=dfapartments.columns.values)
 
 if __name__ == "__main__":
 

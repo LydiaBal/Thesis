@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Milan Apartemnts</title>
+    <style>
+        table {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }       
+
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #008CBA;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: center;
+            color: white;
+        }
+        tr:hover {
+            background-color: #F0F8FF;
+        }
+    </style>
+</head>
+<body>
+{% for table in tables %}
+            {{titles[loop.index]}}
+            {{ table|safe }}
+{% endfor %}
+<br>
+<form align="center" action="{{ url_for('apartments') }}" method="post">
+    <input type="submit" name="action" value="next">
+    <input type="submit" name="action" value="prev">
+</form>
+
+</body>
+</html> 
