@@ -31,10 +31,5 @@
             {{titles[loop.index]}}
             {{ table|safe }}
 {% endfor %}
-<form action="{{ url_for('results') }}" method="post">
-    <input type="submit" name="action" value="next">
-    <input type="submit" name="action" value="prev">
-</form>
-
 </body>
-</html> 
+</html>

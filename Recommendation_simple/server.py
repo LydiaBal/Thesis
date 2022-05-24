@@ -1,22 +1,17 @@
 from cgitb import html
-from itertools import count
 from pickle import NONE
-from typing import Counter
 from flask import Flask, request
-from flask import render_template, redirect, url_for
+from flask import render_template
 from numpy import array
 import RecFunctions as rec
 import pandas as pd
 
 app = Flask(__name__)
 
-page = 0
 
 user = [0,0,0,0,0,0,0,0,0,0,0]
 @app.route('/', methods=['GET', 'POST'])
 def index():
-   global page
-   page = 0
    for i in range(len(user)):
       user[i] = 0
    print('Initialization of user array', user)
@@ -24,10 +19,6 @@ def index():
 
 @app.route('/results', methods=['POST','GET'])
 def results():
-
-   global page
-
-   newargs = request.args
    # Get user preferences
    if request.args.get('action1') != None:
       user[0] = 1
@@ -54,7 +45,7 @@ def results():
    print('User list is:', user)
 
    # Get apartments from skyline
-   dataset_name = "resultsdf.csv"
+   dataset_name = "processeddf.csv"
    dfapartments = pd.read_csv(dataset_name, encoding="ISO-8859-1", na_values="")
 
    # Get attributes for cosine sim
@@ -71,20 +62,9 @@ def results():
    # print(dfapartments)
    print('Apartments order', sortedapart)
    dfapartments.to_csv("sortedapartments.csv", index = False)
-   # get_rows = dfapartments.head(50)
-   if request.method == "POST":
-      if request.form['action'] == 'next':
-         page = page + 1
-         return redirect(url_for('results',**newargs))
-      elif request.form['action'] == 'prev':
-         if page != 0:
-            page = page - 1
-            return redirect(url_for('results',**newargs))
 
-   get_rows = dfapartments[(15*page):(15*page + 15)]
-
-   return render_template('results.html', tables=[get_rows.to_html(classes='data',index = False)], titles=dfapartments.columns.values)
+   return render_template('results.html',  tables=[dfapartments.to_html(classes='data',index = False)], titles=dfapartments.columns.values)
 
 if __name__ == "__main__":
 
-    app.run(host='0.0.0.0', port=81)
+    app.run(host='0.0.0.0', port=80)
