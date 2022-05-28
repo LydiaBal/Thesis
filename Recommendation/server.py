@@ -20,6 +20,15 @@ def index():
    for i in range(len(user)):
       user[i] = 0
    print('Initialization of user array', user)
+   return render_template("demo.html")
+
+@app.route('/pref', methods=['GET', 'POST'])
+def pref():
+   global page
+   page = 0
+   for i in range(len(user)):
+      user[i] = 0
+   print('Initialization of user array', user)
    return render_template("index.html")
 
 @app.route('/results', methods=['POST','GET'])
