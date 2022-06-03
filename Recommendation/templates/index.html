@@ -1,148 +1,73 @@
-<html>
-<style>
-      br {
-    line-height: 8px;
- }
-    label {
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 22px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
-/* Hide the browser's default checkbox */
-label input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-/* Create a custom checkbox */
-.checkmark {
-  position: absolute;
-  top: 0;
-  left: 20em;
-  height: 25px;
-  width: 25px;
-  background-color: #eee;
-}
-
-/* On mouse-over, add a grey background color */
-label:hover input ~ .checkmark {
-  background-color: #ccc;
-}
-
-/* When the checkbox is checked, add a blue background */
-label input:checked ~ .checkmark {
-  background-color: #2196F3;
-}
-
-/* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-/* Show the checkmark when checked */
-label input:checked ~ .checkmark:after {
-  display: block;
-}
-
-/* Style the checkmark/indicator */
-label .checkmark:after {
-  left: 9px;
-  top: 5px;
-  width: 5px;
-  height: 10px;
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
-
-.submit {
-    border-radius: 4px;
-    border: none;
-    background-color: #008CBA; /* Green */
-    color: white;
-    padding: 10px 15px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    cursor: pointer;
-}
-</style>
-<body align="center">
-    <h2>Choose at least 3 preferences</h2>
-    <form action="/results" >
-
-        <label for="action1">TV
-        <input type="checkbox" id="action1" name="action1" value="TV">
-        <span class="checkmark"></span>
-        </label><br>
-
-        <label for="action2">WiFi
-        <input type="checkbox" id="action2" name="action2" value="WiFi">
-        <span class="checkmark"></span>
-        </label><br>
-
-        <label for="action3">Air Condition
-        <input type="checkbox" id="action3" name="action3" value="Air Condition">
-        <span class="checkmark"></span>
-        </label><br>
-
-        <label for="action4">Kitchen
-        <input type="checkbox" id="action4" name="action4" value="Kitchen">
-        <span class="checkmark"></span>
-        </label><br>
-
-        <label for="action5">Breakfast
-        <input type="checkbox" id="action5" name="action5" value="Breakfast">
-        <span class="checkmark"></span>
-        </label><br>
-
-        <label for="action6">Elevator
-        <input type="checkbox" id="action6" name="action6" value="Elevator">
-        <span class="checkmark"></span>
-        </label><br>
-
-        <label for="action7">Heating
-        <input type="checkbox" id="action7" name="action7" value="Heating">
-        <span class="checkmark"></span>
-        </label><br>
-
-        <label for="action8">Washer
-        <input type="checkbox" id="action8" name="action8" value="Washer">
-        <span class="checkmark"></span>
-        </label><br>
-
-        <label for="action9">Iron
-        <input type="checkbox" id="action9" name="action9" value="Iron">
-        <span class="checkmark"></span>
-        </label><br>
-
-        <label for="action10">Luggage dropoff
-        <input type="checkbox" id="action10" name="action10" value="Luggage dropoff">
-        <span class="checkmark"></span>
-        </label><br>
-
-        <label for="action11">Smoking allowed
-        <input type="checkbox" id="action11" name="action11" value="Smoking allowed">
-        <span class="checkmark"></span>
-        </label><br>
-
-        <input class="submit" type="submit" value="Submit">
-      </form>
-    </body>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  <nav class="navbar" style="background-color: cornflowerblue; padding: 1em; border-radius: 0.2em;">
+      <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">Milan Apartments | Skyline queries</span>
+      </div>
+  </nav>
+  <br>
+  <form action="/results" style="display: flex; align-items: center; flex-direction: column;">
+  <fieldset>
+  <legend>Choose your preferences</legend>
+  <div class="col-sm-10">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="TV" name="action1" id="flexCheckDefault">
+      <label class="form-check-label" for="flexCheckDefault"> TV </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="WiFi" name="action2" id="flexCheckDefault">
+      <label class="form-check-label" for="flexCheckDefault"> WiFi </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="Kitchen" name="action3" id="flexCheckDefault">
+      <label class="form-check-label" for="flexCheckDefault"> Air Condition </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="Kitchen" name="action4" id="flexCheckDefault">
+      <label class="form-check-label" for="flexCheckDefault"> Kitchen </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="Breakfast" name="action5" id="flexCheckDefault">
+      <label class="form-check-label" for="flexCheckDefault"> Breakfast </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="Elevator" name="action6" id="flexCheckChecked">
+      <label class="form-check-label" for="flexCheckDefault"> Elevator </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="Heating" name="action7" id="flexCheckDefault">
+      <label class="form-check-label" for="flexCheckDefault"> Heating </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="Washer" name="action8" id="flexCheckChecked">
+      <label class="form-check-label" for="flexCheckDefault"> Washer </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="Iron" name="action9" id="flexCheckDefault">
+      <label class="form-check-label" for="flexCheckDefault"> Iron </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="Luggage Dropoff" name="action10" id="flexCheckDefault">
+      <label class="form-check-label" for="flexCheckDefault"> Luggage Dropoff </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="Smoking Allowed" name="action11" id="flexCheckDefault">
+      <label class="form-check-label" for="flexCheckDefault"> Smoking Allowed </label>
+    </div>
+  </div>
+  </fieldset>
+  <div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </div>
+  </form>
+</body>
 </html>

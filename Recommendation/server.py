@@ -36,10 +36,11 @@ def results():
 
    # global page
 
-   newargs = request.args
+   # newargs = request.args
    # Get user preferences
    if request.args.get('action1') != None:
       user[0] = 1
+      print('Im here beatch')
    if request.args.get('action2') != None:
       user[1] = 1
    if request.args.get('action3') != None:
@@ -77,30 +78,34 @@ def results():
 
    dfapartments = dfapartments.set_index('id')
    dfapartments = dfapartments.reindex(sorted_apartments_id)
-   # print(dfapartments)
    print('Apartments order', sortedapart)
-   dfapartments.to_csv("sortedapartments.csv", index = False)
-   return redirect(url_for('apartments'))
 
-@app.route('/apartments', methods=['POST','GET'])
-def apartments():
-   global page
+   #Choose 5 best and get rid of unessecary columns
+   show_ap = rec.df_to_array(dfapartments[0:5])
+   print(show_ap)
+   # dfapartments.to_csv("sortedapartments.csv", index = False)
 
-   dataset_name = "sortedapartments.csv"
-   dfapartments = pd.read_csv(dataset_name, encoding="ISO-8859-1", na_values="")
+   return render_template('results.html', my_list = show_ap)
 
-   if request.method == "POST":
-      if request.form['action'] == 'next':
-         page = page + 1
-         return redirect(url_for('apartments'))
-      elif request.form['action'] == 'prev':
-         if page != 0:
-            page = page - 1
-            return redirect(url_for('apartments'))
+# @app.route('/apartments', methods=['POST','GET'])
+# def apartments():
+#    global page
 
-   get_rows = dfapartments[(13*page):(13*page + 13)]
+#    dataset_name = "sortedapartments.csv"
+#    dfapartments = pd.read_csv(dataset_name, encoding="ISO-8859-1", na_values="")
 
-   return render_template('apartments.html', tables=[get_rows.to_html(classes='data',index = False)], titles=dfapartments.columns.values)
+#    if request.method == "POST":
+#       if request.form['action'] == 'next':
+#          page = page + 1
+#          return redirect(url_for('apartments'))
+#       elif request.form['action'] == 'prev':
+#          if page != 0:
+#             page = page - 1
+#             return redirect(url_for('apartments'))
+
+#    get_rows = dfapartments[(13*page):(13*page + 13)]
+
+#    return render_template('apartments.html', tables=[get_rows.to_html(classes='data',index = False)], titles=dfapartments.columns.values)
 
 if __name__ == "__main__":
 
