@@ -15,10 +15,60 @@
       </div>
   </nav>
   <br>
-  <form action="/results" style="display: flex; align-items: center; flex-direction: column;">
-  <fieldset>
-  <legend>Choose your preferences</legend>
-  <div class="col-sm-10">
+  <legend align="center">Choose your Filters</legend>
+  <form action="/results" style="display: flex; flex-direction: column;">
+  <div class="row row-cols-2 ">
+  <div class="col" style="margin-left: 4em; width:45%">
+  <div>
+  <label for="People" class="form-label">People</label>
+  <input type="range" class="form-range" min="1" max="12" id="People" name="People" oninput="amountpeople.value=People.value">
+  <output name="amountpeople" id="amountpeople" for="People">-</output>
+  </div>
+    <div>
+    <label for="maxPrice" class="form-label">Max Price per day</label>
+    <input type="range" class="form-range" min="0" max="1000" step="10" id="maxPrice" name="maxPrice" oninput="amountmaxprice.value= maxPrice.value">
+    <output name="amountmaxprice" id="amountmaxprice" for="maxPrice">-</output>
+    </div>
+    <div>
+      <label for="minPrice" class="form-label">Min Price per day</label>
+      <input type="range" class="form-range" min="0" max="1000" step="10" id="minPrice" name="minPrice" oninput="amountminprice.value= minPrice.value">
+      <output name="amountminprice" id="amountminprice" for="minPrice">-</output>
+      </div>
+    <div>
+      <label for="Bathrooms" class="form-label">Bathrooms</label>
+      <input type="range" class="form-range" min="1" max="17" id="Bathrooms" name="Bathrooms" oninput="amountbathrooms.value=Bathrooms.value">
+      <output name="amountbathrooms" id="amountbathrooms" for="Bathrooms">-</output>
+    </div>
+    <div>
+      <label for="Beds" class="form-label">Beds</label>
+      <input type="range" class="form-range" min="1" max="16" id="Beds" name="Beds" oninput="amountbeds.value=Beds.value">
+      <output name="amountbeds" id="amountbeds" for="Beds">-</output>
+    </div>
+    <div>
+      <label for="locationmaxscores" class="form-label">Location Max Score</label>
+      <input type="range" class="form-range" min="0" max="10" id="locationmaxscores" name="locationmaxscores" oninput="amountlocationmaxscores.value=locationmaxscores.value*1">
+      <output name="amountlocationmaxscores" id="amountlocationmaxscores" for="locationmaxscores">-</output>
+    </div>
+    <div>
+      <label for="locationminscores" class="form-label">Location Min Score</label>
+      <input type="range" class="form-range" min="0" max="10" id="locationminscores" name="locationminscores" oninput="amountlocationminscores.value=locationminscores.value*1">
+      <output name="amountlocationminscores" id="amountlocationminscores" for="locationminscores">-</output>
+    </div>
+    <div>
+      <label for="reviewsmaxscores" class="form-label">Reviews Max Score</label>
+      <input type="range" class="form-range" min="1" max="10" id="reviesmaxscores" name="reviewsmaxscores" oninput="amountreviewsmaxscores.value=reviewsmaxscores.value*10">
+      <output name="amountreviewsmaxscores" id="amountreviewsmaxscores" for="reviewsmaxscores">-</output>
+    </div>
+    <div>
+      <label for="reviewsminscores" class="form-label">Reviews Min Score</label>
+      <input type="range" class="form-range" min="1" max="10" id="reviesminscores" name="reviewsminscores" oninput="amountreviewsminscores.value=reviewsminscores.value*10">
+      <output name="amountreviewsminscores" id="amountreviewsminscores" for="reviewsminscores">-</output>
+    </div>
+  </div>
+  <div class="col" style="display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;">
+    <legend>Choose your preferences</legend>
     <div class="form-check">
       <input class="form-check-input" type="checkbox" value="TV" name="action1" id="flexCheckDefault">
       <label class="form-check-label" for="flexCheckDefault"> TV </label>
@@ -64,10 +114,11 @@
       <label class="form-check-label" for="flexCheckDefault"> Smoking Allowed </label>
     </div>
   </div>
-  </fieldset>
-  <div>
+  </div>
+  <div style="align-self: center;">
     <button class="btn btn-primary" type="submit">Submit</button>
   </div>
   </form>
+</div>
 </body>
 </html>
