@@ -7,7 +7,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
 </head>
-<body>
+<body style="background-color:#E7F7FF;">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   <nav class="navbar" style="background-color: cornflowerblue; padding: 1em; border-radius: 0.2em;">
       <div class="container-fluid">
@@ -16,107 +16,128 @@
   </nav>
   <br>
   <legend align="center">Choose your Filters</legend>
+
   <form action="/results" style="display: flex; flex-direction: column;">
-  <div class="row row-cols-2 ">
-  <div class="col" style="margin-left: 4em; width:45%">
-  <div>
-  <label for="People" class="form-label">People</label>
-  <input type="range" class="form-range" min="1" max="12" id="People" name="People" oninput="amountpeople.value=People.value">
-  <output name="amountpeople" id="amountpeople" for="People">-</output>
-  </div>
+  <div class="row row-cols-3" style="justify-content: space-evenly;  --bs-gutter-x: 0rem;">
+  <div class="col" style=" width:25%; display: flex; flex-direction: column; justify-content: space-between;">
+  
     <div>
-    <label for="maxPrice" class="form-label">Max Price per day</label>
-    <input type="range" class="form-range" min="0" max="1000" step="10" id="maxPrice" name="maxPrice" oninput="amountmaxprice.value= maxPrice.value">
-    <output name="amountmaxprice" id="amountmaxprice" for="maxPrice">-</output>
-    </div>
-    <div>
-      <label for="minPrice" class="form-label">Min Price per day</label>
-      <input type="range" class="form-range" min="0" max="1000" step="10" id="minPrice" name="minPrice" oninput="amountminprice.value= minPrice.value">
-      <output name="amountminprice" id="amountminprice" for="minPrice">-</output>
+      <div style="display: flex; justify-content: space-between;">
+      <label for="People" class="form-label">People</label>
+      <output name="amountpeople" id="amountpeople" for="People">7</output>
       </div>
-    <div>
-      <label for="Bathrooms" class="form-label">Bathrooms</label>
-      <input type="range" class="form-range" min="1" max="17" id="Bathrooms" name="Bathrooms" oninput="amountbathrooms.value=Bathrooms.value">
-      <output name="amountbathrooms" id="amountbathrooms" for="Bathrooms">-</output>
+      <input type="range" class="form-range" min="1" max="12" id="People" name="People" oninput="amountpeople.value=People.value">
     </div>
+
     <div>
-      <label for="Beds" class="form-label">Beds</label>
-      <input type="range" class="form-range" min="1" max="16" id="Beds" name="Beds" oninput="amountbeds.value=Beds.value">
-      <output name="amountbeds" id="amountbeds" for="Beds">-</output>
+      <div style="display: flex; justify-content: space-between;">
+      <label for="maxPrice" class="form-label">Max Price per day</label>
+      <output name="amountmaxprice" id="amountmaxprice" for="maxPrice">500</output>
+      </div>
+      <input type="range" class="form-range" min="0" max="1000" step="10" id="maxPrice" name="maxPrice" oninput="amountmaxprice.value= maxPrice.value"> 
+      </div>
+
+    <!-- <div>
+      <div style="display: flex; justify-content: space-between;">
+        <label for="minPrice" class="form-label">Min Price per day</label>
+        <output name="amountminprice" id="amountminprice" for="minPrice">500</output>
+      </div>
+        <input type="range" class="form-range" min="0" max="1000" step="10" id="minPrice" name="minPrice" oninput="amountminprice.value= minPrice.value">    
+    </div> -->
+
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="wheelcair" name="wheelchair">
+      <label class="form-check-label" for="wheelcair">Wheelcair Accessibility</label>
     </div>
+  </div>
+  <div class="col" style=" width:25%; display: flex; flex-direction: column; justify-content: space-around;">
+
+
+      <!-- <div>
+        <div style="display: flex; justify-content: space-between;">
+          <label for="locationmaxscores" class="form-label">Location Max Score</label>
+          <output name="amountlocationmaxscores" id="amountlocationmaxscores" for="locationmaxscores">5</output>
+        </div>
+      <input type="range" class="form-range" min="0" max="10" id="locationmaxscores" name="locationmaxscores" oninput="amountlocationmaxscores.value=locationmaxscores.value">    
+      </div> -->
+
+      <div>
+        <div style="display: flex; justify-content: space-between;">
+          <label for="locationminscores" class="form-label">Location Min Score</label>
+          <output name="amountlocationminscores" id="amountlocationminscores" for="locationminscores">5</output>
+        </div>
+        <input type="range" class="form-range" min="0" max="10" id="locationminscores" name="locationminscores" oninput="amountlocationminscores.value=locationminscores.value">  
+      </div>
+
+    <!-- <div>
+      <div style="display: flex; justify-content: space-between;">
+        <label for="reviewsmaxscores" class="form-label">Reviews Max Score</label>
+        <output name="amountreviewsmaxscores" id="amountreviewsmaxscores" for="reviewsmaxscores">50</output>
+      </div>
+      <input type="range" class="form-range" min="0" max="100" step="10" id="reviesmaxscores" name="reviewsmaxscores" oninput="amountreviewsmaxscores.value=reviewsmaxscores.value">
+    </div> -->
+
     <div>
-      <label for="locationmaxscores" class="form-label">Location Max Score</label>
-      <input type="range" class="form-range" min="0" max="10" id="locationmaxscores" name="locationmaxscores" oninput="amountlocationmaxscores.value=locationmaxscores.value*1">
-      <output name="amountlocationmaxscores" id="amountlocationmaxscores" for="locationmaxscores">-</output>
-    </div>
-    <div>
-      <label for="locationminscores" class="form-label">Location Min Score</label>
-      <input type="range" class="form-range" min="0" max="10" id="locationminscores" name="locationminscores" oninput="amountlocationminscores.value=locationminscores.value*1">
-      <output name="amountlocationminscores" id="amountlocationminscores" for="locationminscores">-</output>
-    </div>
-    <div>
-      <label for="reviewsmaxscores" class="form-label">Reviews Max Score</label>
-      <input type="range" class="form-range" min="1" max="10" id="reviesmaxscores" name="reviewsmaxscores" oninput="amountreviewsmaxscores.value=reviewsmaxscores.value*10">
-      <output name="amountreviewsmaxscores" id="amountreviewsmaxscores" for="reviewsmaxscores">-</output>
-    </div>
-    <div>
-      <label for="reviewsminscores" class="form-label">Reviews Min Score</label>
-      <input type="range" class="form-range" min="1" max="10" id="reviesminscores" name="reviewsminscores" oninput="amountreviewsminscores.value=reviewsminscores.value*10">
-      <output name="amountreviewsminscores" id="amountreviewsminscores" for="reviewsminscores">-</output>
+      <div style="display: flex; justify-content: space-between;">
+        <label for="reviewsminscores" class="form-label">Reviews Min Score</label>
+        <output name="amountreviewsminscores" id="amountreviewsminscores" for="reviewsminscores">50</output>
+      </div>
+      <input type="range" class="form-range" min="0" max="100" step="10" id="reviesminscores" name="reviewsminscores" oninput="amountreviewsminscores.value=reviewsminscores.value">
     </div>
   </div>
   <div class="col" style="display: flex;
   flex-direction: column;
   justify-content: space-evenly;">
     <legend>Choose your preferences</legend>
+    <p>Select at least 3</p>
     <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="TV" name="action1" id="flexCheckDefault">
+      <input class="form-check-input" type="checkbox" value="TV" name="action1" id="flexCheckDefault" onchange="document.getElementById('sub').disabled = !this.checked;">
       <label class="form-check-label" for="flexCheckDefault"> TV </label>
     </div>
     <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="WiFi" name="action2" id="flexCheckDefault">
+      <input class="form-check-input" type="checkbox" value="WiFi" name="action2" id="flexCheckDefault" onchange="document.getElementById('sub').disabled = !this.checked;">
       <label class="form-check-label" for="flexCheckDefault"> WiFi </label>
     </div>
     <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="Kitchen" name="action3" id="flexCheckDefault">
+      <input class="form-check-input" type="checkbox" value="Kitchen" name="action3" id="flexCheckDefault" onchange="document.getElementById('sub').disabled = !this.checked;">
       <label class="form-check-label" for="flexCheckDefault"> Air Condition </label>
     </div>
     <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="Kitchen" name="action4" id="flexCheckDefault">
+      <input class="form-check-input" type="checkbox" value="Kitchen" name="action4" id="flexCheckDefault" onchange="document.getElementById('sub').disabled = !this.checked;">
       <label class="form-check-label" for="flexCheckDefault"> Kitchen </label>
     </div>
     <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="Breakfast" name="action5" id="flexCheckDefault">
+      <input class="form-check-input" type="checkbox" value="Breakfast" name="action5" id="flexCheckDefault" onchange="document.getElementById('sub').disabled = !this.checked;">
       <label class="form-check-label" for="flexCheckDefault"> Breakfast </label>
     </div>
     <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="Elevator" name="action6" id="flexCheckChecked">
+      <input class="form-check-input" type="checkbox" value="Elevator" name="action6" id="flexCheckChecked" onchange="document.getElementById('sub').disabled = !this.checked;">
       <label class="form-check-label" for="flexCheckDefault"> Elevator </label>
     </div>
     <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="Heating" name="action7" id="flexCheckDefault">
+      <input class="form-check-input" type="checkbox" value="Heating" name="action7" id="flexCheckDefault" onchange="document.getElementById('sub').disabled = !this.checked;">
       <label class="form-check-label" for="flexCheckDefault"> Heating </label>
     </div>
     <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="Washer" name="action8" id="flexCheckChecked">
+      <input class="form-check-input" type="checkbox" value="Washer" name="action8" id="flexCheckChecked" onchange="document.getElementById('sub').disabled = !this.checked;">
       <label class="form-check-label" for="flexCheckDefault"> Washer </label>
     </div>
     <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="Iron" name="action9" id="flexCheckDefault">
+      <input class="form-check-input" type="checkbox" value="Iron" name="action9" id="flexCheckDefault" onchange="document.getElementById('sub').disabled = !this.checked;">
       <label class="form-check-label" for="flexCheckDefault"> Iron </label>
     </div>
     <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="Luggage Dropoff" name="action10" id="flexCheckDefault">
+      <input class="form-check-input" type="checkbox" value="Luggage Dropoff" name="action10" id="flexCheckDefault" onchange="document.getElementById('sub').disabled = !this.checked;">
       <label class="form-check-label" for="flexCheckDefault"> Luggage Dropoff </label>
     </div>
     <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="Smoking Allowed" name="action11" id="flexCheckDefault">
+      <input class="form-check-input" type="checkbox" value="Smoking Allowed" name="action11" id="flexCheckDefault" onchange="document.getElementById('sub').disabled = !this.checked;">
       <label class="form-check-label" for="flexCheckDefault"> Smoking Allowed </label>
     </div>
   </div>
   </div>
-  <div style="align-self: center;">
-    <button class="btn btn-primary" type="submit">Submit</button>
+  <div style="align-self: center; padding: 2em;">
+    <button class="btn btn-primary" type="submit" name="sub" id="sub" disabled>Submit</button>
   </div>
   </form>
 </div>

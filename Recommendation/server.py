@@ -34,13 +34,9 @@ def pref():
 @app.route('/results', methods=['POST','GET'])
 def results():
 
-   # global page
-
-   # newargs = request.args
    # Get user preferences
    if request.args.get('action1') != None:
       user[0] = 1
-      print('Im here beatch')
    if request.args.get('action2') != None:
       user[1] = 1
    if request.args.get('action3') != None:
@@ -80,32 +76,25 @@ def results():
    dfapartments = dfapartments.reindex(sorted_apartments_id)
    print('Apartments order', sortedapart)
 
+   #Return only those on which filters apply
+   dfapartments = dfapartments[dfapartments['accommodates'] == int(request.args.get('People')) ]
+   print(dfapartments)
+   dfapartments = dfapartments[dfapartments['daily_price'] <= int(request.args.get('maxPrice')) ]
+   # dfapartments = dfapartments[dfapartments['daily_price'] >= int(request.args.get('minPrice')) ]
+   # dfapartments = dfapartments[dfapartments['review_scores_location'] <= int(request.args.get('locationmaxscores')) ]
+   dfapartments = dfapartments[dfapartments['review_scores_location'] >= int(request.args.get('locationminscores')) ]
+   # dfapartments = dfapartments[dfapartments['review_scores_rating'] <= int(request.args.get('reviewsmaxscores')) ]
+   dfapartments = dfapartments[dfapartments['review_scores_rating'] >= int(request.args.get('reviewsminscores')) ]
+   if(request.args.get('wheelchair') == 'on'):
+      dfapartments = dfapartments[dfapartments['Wheelchair_accessible'] == 1 ]
+
+
    #Choose 5 best and get rid of unessecary columns
    show_ap = rec.df_to_array(dfapartments[0:5])
    print(show_ap)
    # dfapartments.to_csv("sortedapartments.csv", index = False)
 
    return render_template('results.html', my_list = show_ap)
-
-# @app.route('/apartments', methods=['POST','GET'])
-# def apartments():
-#    global page
-
-#    dataset_name = "sortedapartments.csv"
-#    dfapartments = pd.read_csv(dataset_name, encoding="ISO-8859-1", na_values="")
-
-#    if request.method == "POST":
-#       if request.form['action'] == 'next':
-#          page = page + 1
-#          return redirect(url_for('apartments'))
-#       elif request.form['action'] == 'prev':
-#          if page != 0:
-#             page = page - 1
-#             return redirect(url_for('apartments'))
-
-#    get_rows = dfapartments[(13*page):(13*page + 13)]
-
-#    return render_template('apartments.html', tables=[get_rows.to_html(classes='data',index = False)], titles=dfapartments.columns.values)
 
 if __name__ == "__main__":
 
