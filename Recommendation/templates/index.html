@@ -8,6 +8,12 @@
 
 </head>
 <body style="background-color:#E7F7FF;">
+  <script>
+    function func(People)
+    {
+      window.location.href = "/results?People" + People+ 'somthing';
+    }
+  </script>    
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   <nav class="navbar" style="background-color: cornflowerblue; padding: 1em; border-radius: 0.2em;">
       <div class="container-fluid">
@@ -17,7 +23,7 @@
   <br>
   <legend align="center">Choose your Filters</legend>
 
-  <form action="/results" style="display: flex; flex-direction: column;">
+  <form action="/pref" style="display: flex; flex-direction: column;">
   <div class="row row-cols-3" style="justify-content: space-evenly;  --bs-gutter-x: 0rem;">
   <div class="col" style=" width:25%; display: flex; flex-direction: column; justify-content: space-between;">
   
@@ -85,7 +91,7 @@
       <input type="range" class="form-range" min="0" max="100" step="10" id="reviesminscores" name="reviewsminscores" oninput="amountreviewsminscores.value=reviewsminscores.value">
     </div>
   </div>
-  <div class="col" style="display: flex;
+  <!-- <div class="col" style="display: flex;
   flex-direction: column;
   justify-content: space-evenly;">
     <legend>Choose your preferences</legend>
@@ -135,11 +141,48 @@
       <label class="form-check-label" for="flexCheckDefault"> Smoking Allowed </label>
     </div>
   </div>
-  </div>
+  </div> -->
+</div>
   <div style="align-self: center; padding: 2em;">
-    <button class="btn btn-primary" type="submit" name="sub" id="sub" disabled>Submit</button>
+    <button class="btn btn-primary" type="submit" >Search</button>
   </div>
   </form>
-</div>
+  {% if show_table == 1 %}
+  <h3 align="center">Results: {{my_list|length}}</h3>
+  <br>
+  <div class="row row-cols-3 " style="justify-content: space-evenly ;">
+  {% for i in my_list %}
+    <div class="col" style="display: flex; justify-content: center;">
+    <div class="card border-dark mb-3 text-center" style="max-width: 18rem; width: 70%;">
+        <div class="card-header">Apartment</div>
+        <div class="card-body text-dark">
+          <h5 class="card-title">Characteristics</h5>
+          <p class="card-text" style="margin-bottom: 0rem;">People : {{i[2]}} </p>
+          <p class="card-text" style="margin-bottom: 0rem;">Bathrooms: {{i[3]}}</p>
+          <p class="card-text" style="margin-bottom: 0rem;">Bedrooms : {{i[4]}}</p>
+          <p class="card-text" style="margin-bottom: 0rem;">Beds : {{i[5]}}</p>
+          <p class="card-text" style="margin-bottom: 0rem;">Daily Price : {{i[6]}}</p>
+          <p class="card-text" style="margin-bottom: 0rem;">Number of Reviews : {{i[7]}}</p>
+          <p class="card-text" style="margin-bottom: 0rem;">Reviews Score : {{i[8]}}/100</p>
+          <p class="card-text" style="margin-bottom: 0rem;">Location Score : {{i[9]}}/10</p>
+          <p class="card-text" style="margin-bottom: 0rem;">TV : {% if i[10] == 1 %} yes {% else %} no {% endif %}</p>
+          <p class="card-text" style="margin-bottom: 0rem;">WiFi : {% if i[11] == 1 %} yes {% else %} no {% endif %}</p>
+          <p class="card-text" style="margin-bottom: 0rem;">Air Condition : {% if i[12] == 1 %} yes {% else %} no {% endif %}</p>
+          <p class="card-text" style="margin-bottom: 0rem;">Kitchen : {% if i[14] == 1 %} yes {% else %} no {% endif %}</p>
+          <p class="card-text" style="margin-bottom: 0rem;">Breakfast : {% if i[15] == 1 %} yes {% else %} no {% endif %}</p>
+          <p class="card-text" style="margin-bottom: 0rem;">Elevator : {% if i[16] == 1 %} yes {% else %} no {% endif %}</p>
+          <p class="card-text" style="margin-bottom: 0rem;">Heating : {% if i[17] == 1 %} yes {% else %} no {% endif %}</p>
+          <p class="card-text" style="margin-bottom: 0rem;">Washer : {% if i[18] == 1 %} yes {% else %} no {% endif %}</p>
+          <p class="card-text" style="margin-bottom: 0rem;">Iron : {% if i[19] == 1 %} yes {% else %} no {% endif %}</p>
+          <p class="card-text" style="margin-bottom: 0rem;">Luggage Dropoff : {% if i[20] == 1 %} yes {% else %} no {% endif %}</p>
+          <p class="card-text" style="margin-bottom: 0rem;">Pets : {% if i[21] == 1 %} yes {% else %} no {% endif %}</p>
+          <p class="card-text" style="margin-bottom: 0rem;">Smoking Allowed : {% if i[22] == 1 %} yes {% else %} no {% endif %}</p>
+          <a href='/results?wheelchair={{wheelchair}}&people={{i[2]}}&TV={{i[10]}}&WiFi={{i[11]}}&air_Condition={{i[12]}}&kitchen={{i[14]}}&breakfast={{i[15]}}&elevator={{i[16]}}&heating={{i[17]}}&washer={{i[18]}}&iron={{i[19]}}&luggage={{i[20]}}&smoking={{i[22]}}&maxPrice={{i[6]}}&locationminscores={{i[9]}}&reviewsminscores={{i[8]}}' class="btn btn-outline-primary">Select</a>
+        </div>
+    </div>
+    </div>
+    {% endfor %}
+  {% endif %}
+  </div>
 </body>
 </html>

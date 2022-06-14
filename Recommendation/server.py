@@ -4,19 +4,16 @@ from pickle import NONE
 from typing import Counter
 from flask import Flask, request
 from flask import render_template, redirect, url_for
+import mysqlx
 from numpy import array
 import RecFunctions as rec
 import pandas as pd
 
 app = Flask(__name__)
 
-page = 0
-
 user = [0,0,0,0,0,0,0,0,0,0,0]
 @app.route('/', methods=['GET', 'POST'])
 def index():
-   global page
-   page = 0
    for i in range(len(user)):
       user[i] = 0
    print('Initialization of user array', user)
@@ -24,38 +21,55 @@ def index():
 
 @app.route('/pref', methods=['GET', 'POST'])
 def pref():
-   global page
-   page = 0
+   show_ap = []
+   table = 0
    for i in range(len(user)):
       user[i] = 0
    print('Initialization of user array', user)
-   return render_template("index.html")
+
+   dataset_name = "resultsdf.csv"
+   dfapartments = pd.read_csv(dataset_name, encoding="ISO-8859-1", na_values="")
+
+   if request.args.get('People') != None :
+      table = 1
+   #Return only those on which filters apply
+      dfapartments = dfapartments[dfapartments['accommodates'] == int(request.args.get('People')) ]
+      dfapartments = dfapartments[dfapartments['daily_price'] <= int(request.args.get('maxPrice')) ]
+      dfapartments = dfapartments[dfapartments['review_scores_location'] >= int(request.args.get('locationminscores')) ]
+      dfapartments = dfapartments[dfapartments['review_scores_rating'] >= int(request.args.get('reviewsminscores')) ]
+      if(request.args.get('wheelchair') == 'on'):
+         print('got in here')
+         dfapartments = dfapartments[dfapartments['Wheelchair_accessible'] == 1 ]
+      show_ap = rec.df_to_array(dfapartments)
+
+   return render_template("index.html",wheelchair = request.args.get('wheelchair'),  show_table = table, my_list = show_ap)
+
 
 @app.route('/results', methods=['POST','GET'])
 def results():
 
    # Get user preferences
-   if request.args.get('action1') != None:
+   if request.args.get('TV') == 1:
       user[0] = 1
-   if request.args.get('action2') != None:
+   if request.args.get('WiFi') != None:
       user[1] = 1
-   if request.args.get('action3') != None:
+   if request.args.get('air_condition') != None:
       user[2] = 1
-   if request.args.get('action4') != None:
+   if request.args.get('kitchen') != None:
       user[3] = 1
-   if request.args.get('action5') != None:
+   if request.args.get('breakfast') != None:
       user[4] = 1
-   if request.args.get('action6') != None:
+   if request.args.get('elevator') != None:
       user[5] = 1
-   if request.args.get('action7') != None:
+   if request.args.get('heating') != None:
       user[6] = 1
-   if request.args.get('action8') != None:
+   if request.args.get('washer') != None:
       user[7] = 1
-   if request.args.get('action9') != None:
+   if request.args.get('iron') != None:
       user[8] = 1
-   if request.args.get('action10') != None:
+   if request.args.get('luggage') != None:
       user[9] = 1
-   if request.args.get('action11') != None:
+   if request.args.get('smoking') != None:
       user[10] = 1
    print('User list is:', user)
 
@@ -77,14 +91,18 @@ def results():
    print('Apartments order', sortedapart)
 
    #Return only those on which filters apply
-   dfapartments = dfapartments[dfapartments['accommodates'] == int(request.args.get('People')) ]
+   dfapartments = dfapartments[dfapartments['accommodates'] == int(request.args.get('people')) ]
    print(dfapartments)
-   dfapartments = dfapartments[dfapartments['daily_price'] <= int(request.args.get('maxPrice')) ]
-   # dfapartments = dfapartments[dfapartments['daily_price'] >= int(request.args.get('minPrice')) ]
-   # dfapartments = dfapartments[dfapartments['review_scores_location'] <= int(request.args.get('locationmaxscores')) ]
-   dfapartments = dfapartments[dfapartments['review_scores_location'] >= int(request.args.get('locationminscores')) ]
-   # dfapartments = dfapartments[dfapartments['review_scores_rating'] <= int(request.args.get('reviewsmaxscores')) ]
-   dfapartments = dfapartments[dfapartments['review_scores_rating'] >= int(request.args.get('reviewsminscores')) ]
+   dfapartments = dfapartments[dfapartments['daily_price'] <= int(request.args.get('maxPrice')) + 10 ]
+   dfapartments = dfapartments[dfapartments['daily_price'] >= int(request.args.get('maxPrice')) - 10 ]
+   print(dfapartments)
+   dfapartments = dfapartments[dfapartments['review_scores_location'] <= (int(request.args.get('locationminscores')) + 1) ]
+   dfapartments = dfapartments[dfapartments['review_scores_location'] >= (int(request.args.get('locationminscores')) - 1) ]
+   print(dfapartments)
+   dfapartments = dfapartments[dfapartments['review_scores_rating'] >= (int(request.args.get('reviewsminscores')) - 10) ]
+   dfapartments = dfapartments[dfapartments['review_scores_rating'] <= (int(request.args.get('reviewsminscores')) + 10)]
+   print(dfapartments)
+
    if(request.args.get('wheelchair') == 'on'):
       dfapartments = dfapartments[dfapartments['Wheelchair_accessible'] == 1 ]
 
@@ -93,7 +111,6 @@ def results():
    show_ap = rec.df_to_array(dfapartments[0:5])
    print(show_ap)
    # dfapartments.to_csv("sortedapartments.csv", index = False)
-
    return render_template('results.html', my_list = show_ap)
 
 if __name__ == "__main__":
