@@ -113,6 +113,11 @@ def results():
    # dfapartments.to_csv("sortedapartments.csv", index = False)
    return render_template('results.html', my_list = show_ap)
 
+@app.route('/questionnaire', methods=['POST','GET'])
+def questionnaire():
+   return render_template('questionnaire.html')
+
+
 if __name__ == "__main__":
 
     app.run(host='0.0.0.0', port=81)

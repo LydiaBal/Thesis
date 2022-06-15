@@ -15,7 +15,10 @@
         </div>
     </nav>
     <br>
-    <h4 align="center">Recommended Apartments</h4>
+    <div style="    display: flex; flex-direction: column; align-items: flex-end;">
+    <h4 style="align-self: center">Προτεινόμενα Διαμερίσματα με αυτό που επέλεξες</h4>
+    <a href="/questionnaire" class="btn btn-primary">Ολοκλήρωση Αναζήτησης</a>
+  </div>
     <br>
     <div class="row row-cols-3 " style="justify-content: space-evenly ;">
     {% if my_list|length == 0 %}
@@ -32,7 +35,7 @@
     <div class="card border-dark mb-3" style="max-width: 18rem; width: 70%;">
         <div class="card-header">Apartment</div>
         <div class="card-body text-dark">
-          <h5 class="card-title">Characteristics</h5>
+          <h5 class="card-title">Χαρακτηριστικά</h5>
           <p class="card-text">People : {{i[1]}}</p>
           <p class="card-text">Bathrooms: {{i[2]}}</p>
           <p class="card-text">Bedrooms : {{i[3]}}</p>
