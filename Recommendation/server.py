@@ -117,6 +117,10 @@ def results():
 def questionnaire():
    return render_template('questionnaire.html')
 
+@app.route('/adios', methods=['POST','GET'])
+def adios():
+   return render_template('adios.html')
+
 
 if __name__ == "__main__":
 
