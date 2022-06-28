@@ -8,6 +8,7 @@ import mysqlx
 from numpy import array
 import RecFunctions as rec
 import pandas as pd
+import numpy as np
 
 app = Flask(__name__)
 
@@ -119,7 +120,35 @@ def questionnaire():
 
 @app.route('/adios', methods=['POST','GET'])
 def adios():
-   return render_template('adios.html')
+   acurate = 1
+   user_voting = []
+   if request.args.get('question0') != None and request.args.get('question1') != None and request.args.get('question2') != None and request.args.get('question3') != None and request.args.get('question4') != None and request.args.get('question5') != None and request.args.get('question6') != None and request.args.get('question7') != None and request.args.get('question8') != None :
+      user_voting.append(int(request.args.get('age')))
+      user_voting.append(int(request.args.get('question0')))
+      user_voting.append(int(request.args.get('question1')))
+      user_voting.append(int(request.args.get('question2')))
+      user_voting.append(int(request.args.get('question3')))
+      user_voting.append(int(request.args.get('question4')))
+      user_voting.append(int(request.args.get('question5')))
+      user_voting.append(int(request.args.get('question6')))
+      user_voting.append(int(request.args.get('question7')))
+      user_voting.append(int(request.args.get('question8')))
+      print(user_voting)
+      try:
+         dataset_name = "voted_skyline.csv"
+         votes = pd.read_csv(dataset_name, encoding="ISO-8859-1", na_values="")
+      except:
+         votes = pd.DataFrame(columns=['age','familiarity','mentally_demanding','pace_of_task','satisfaction_choice','satisfaction_rec','searching_effort','discouraged','challenging','not_appealing'])
+      votes.loc[-1] = user_voting
+      votes.index = votes.index + 1
+      new_votes = votes.sort_index()
+      new_votes.to_csv("voted_skyline.csv", index = False)
+         
+         
+   else:
+      acurate = 0
+      
+   return render_template('adios.html', valid = acurate)
 
 
 if __name__ == "__main__":
