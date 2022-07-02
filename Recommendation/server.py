@@ -28,22 +28,38 @@ def pref():
       user[i] = 0
    print('Initialization of user array', user)
 
-   dataset_name = "resultsdf.csv"
+   f = open('counter.txt')
+   counter = f.readline()[0]
+   print(counter)
+   f.close()
+
+   if int(counter)%2 == 0:
+      dataset_name = "resultsdf.csv"
+   else:
+      dataset_name = "processeddf.csv"
+
    dfapartments = pd.read_csv(dataset_name, encoding="ISO-8859-1", na_values="")
+   thepeople = 7
+   themaxprice = 500
+   theminloc = 5
+   theminrev = 50
 
    if request.args.get('People') != None :
       table = 1
    #Return only those on which filters apply
+      thepeople = int(request.args.get('People'))
+      themaxprice = int(request.args.get('maxPrice'))
+      theminloc = int(request.args.get('locationminscores'))
+      theminrev = int(request.args.get('reviewsminscores'))
       dfapartments = dfapartments[dfapartments['accommodates'] == int(request.args.get('People')) ]
       dfapartments = dfapartments[dfapartments['daily_price'] <= int(request.args.get('maxPrice')) ]
       dfapartments = dfapartments[dfapartments['review_scores_location'] >= int(request.args.get('locationminscores')) ]
       dfapartments = dfapartments[dfapartments['review_scores_rating'] >= int(request.args.get('reviewsminscores')) ]
       if(request.args.get('wheelchair') == 'on'):
-         print('got in here')
          dfapartments = dfapartments[dfapartments['Wheelchair_accessible'] == 1 ]
       show_ap = rec.df_to_array(dfapartments)
 
-   return render_template("index.html",wheelchair = request.args.get('wheelchair'),  show_table = table, my_list = show_ap)
+   return render_template("index.html",wheelchair = request.args.get('wheelchair'),  theminrev=theminrev, theminloc=theminloc, themaxprice=themaxprice , thepeople=thepeople,show_table = table, my_list = show_ap)
 
 
 @app.route('/results', methods=['POST','GET'])
@@ -75,7 +91,15 @@ def results():
    print('User list is:', user)
 
    # Get apartments from skyline
-   dataset_name = "resultsdf.csv"
+   f = open('counter.txt')
+   counter = f.readline()[0]
+   f.close()
+
+   if int(counter)%2 == 0:
+      dataset_name = "resultsdf.csv"
+   else:
+      dataset_name = "processeddf.csv"
+
    dfapartments = pd.read_csv(dataset_name, encoding="ISO-8859-1", na_values="")
 
    # Get attributes for cosine sim
@@ -122,7 +146,11 @@ def questionnaire():
 def adios():
    acurate = 1
    user_voting = []
+   f = open('counter.txt','r')
+   counter = f.readline()[0]
+   f.close()
    if request.args.get('question0') != None and request.args.get('question1') != None and request.args.get('question2') != None and request.args.get('question3') != None and request.args.get('question4') != None and request.args.get('question5') != None and request.args.get('question6') != None and request.args.get('question7') != None and request.args.get('question8') != None :
+      user_voting.append(int(counter))
       user_voting.append(int(request.args.get('age')))
       user_voting.append(int(request.args.get('question0')))
       user_voting.append(int(request.args.get('question1')))
@@ -138,11 +166,16 @@ def adios():
          dataset_name = "voted_skyline.csv"
          votes = pd.read_csv(dataset_name, encoding="ISO-8859-1", na_values="")
       except:
-         votes = pd.DataFrame(columns=['age','familiarity','mentally_demanding','pace_of_task','satisfaction_choice','satisfaction_rec','searching_effort','discouraged','challenging','not_appealing'])
+         votes = pd.DataFrame(columns=['number','age','familiarity','mentally_demanding','pace_of_task','satisfaction_choice','satisfaction_rec','searching_effort','discouraged','challenging','not_appealing'])
       votes.loc[-1] = user_voting
       votes.index = votes.index + 1
       new_votes = votes.sort_index()
       new_votes.to_csv("voted_skyline.csv", index = False)
+      counter = int(counter) + 1
+      f = open('counter.txt','w')
+      f.write(str(counter))
+      f.close()
+
          
          
    else:

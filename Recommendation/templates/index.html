@@ -24,17 +24,17 @@
     <div>
       <div style="display: flex; justify-content: space-between;">
       <label for="People" class="form-label">People</label>
-      <output name="amountpeople" id="amountpeople" for="People">7</output>
+      <output name="amountpeople" id="amountpeople" for="People">{{thepeople}}</output>
       </div>
-      <input type="range" class="form-range" min="1" max="12" id="People" name="People" oninput="amountpeople.value=People.value">
+      <input type="range" class="form-range" min="1" max="12" id="People" name="People" oninput="amountpeople.value=People.value" value="{{thepeople}}">
     </div>
 
     <div>
       <div style="display: flex; justify-content: space-between;">
       <label for="maxPrice" class="form-label">Max Price per day</label>
-      <output name="amountmaxprice" id="amountmaxprice" for="maxPrice">500</output>
+      <output name="amountmaxprice" id="amountmaxprice" for="maxPrice">{{themaxprice}}</output>
       </div>
-      <input type="range" class="form-range" min="0" max="1000" step="10" id="maxPrice" name="maxPrice" oninput="amountmaxprice.value= maxPrice.value"> 
+      <input type="range" class="form-range" min="0" max="1000" step="10" id="maxPrice" name="maxPrice" oninput="amountmaxprice.value= maxPrice.value" value="{{themaxprice}}"> 
       </div>
 
     <div class="form-check form-switch">
@@ -48,17 +48,17 @@
       <div>
         <div style="display: flex; justify-content: space-between;">
           <label for="locationminscores" class="form-label">Location Min Score</label>
-          <output name="amountlocationminscores" id="amountlocationminscores" for="locationminscores">5</output>
+          <output name="amountlocationminscores" id="amountlocationminscores" for="locationminscores">{{theminloc}}</output>
         </div>
-        <input type="range" class="form-range" min="0" max="10" id="locationminscores" name="locationminscores" oninput="amountlocationminscores.value=locationminscores.value">  
+        <input type="range" class="form-range" min="0" max="10" id="locationminscores" name="locationminscores" oninput="amountlocationminscores.value=locationminscores.value" value="{{theminloc}}">  
       </div>
 
     <div>
       <div style="display: flex; justify-content: space-between;">
         <label for="reviewsminscores" class="form-label">Reviews Min Score</label>
-        <output name="amountreviewsminscores" id="amountreviewsminscores" for="reviewsminscores">50</output>
+        <output name="amountreviewsminscores" id="amountreviewsminscores" for="reviewsminscores">{{theminrev}}</output>
       </div>
-      <input type="range" class="form-range" min="0" max="100" step="10" id="reviesminscores" name="reviewsminscores" oninput="amountreviewsminscores.value=reviewsminscores.value">
+      <input type="range" class="form-range" min="0" max="100" step="10" id="reviesminscores" name="reviewsminscores" oninput="amountreviewsminscores.value=reviewsminscores.value" value="{{theminrev}}">
     </div>
   </div>
 </div>
@@ -69,39 +69,60 @@
   {% if show_table == 1 %}
   <h3 align="center">Results: {{my_list|length}}</h3>
   <br>
-  <div class="row row-cols-3 " style="justify-content: space-evenly ;">
-  {% for i in my_list %}
-    <div class="col" style="display: flex; justify-content: center;">
-    <div class="card border-dark mb-3 text-center" style="max-width: 18rem; width: 70%;">
-        <div class="card-header">Apartment</div>
-        <div class="card-body text-dark">
-          <h5 class="card-title">Characteristics</h5>
-          <p class="card-text" style="margin-bottom: 0rem;">People : {{i[2]}} </p>
-          <p class="card-text" style="margin-bottom: 0rem;">Bathrooms: {{i[3]}}</p>
-          <p class="card-text" style="margin-bottom: 0rem;">Bedrooms : {{i[4]}}</p>
-          <p class="card-text" style="margin-bottom: 0rem;">Beds : {{i[5]}}</p>
-          <p class="card-text" style="margin-bottom: 0rem;">Daily Price : {{i[6]}}</p>
-          <p class="card-text" style="margin-bottom: 0rem;">Number of Reviews : {{i[7]}}</p>
-          <p class="card-text" style="margin-bottom: 0rem;">Reviews Score : {{i[8]}}/100</p>
-          <p class="card-text" style="margin-bottom: 0rem;">Location Score : {{i[9]}}/10</p>
-          <p class="card-text" style="margin-bottom: 0rem;">TV : {% if i[10] == 1 %} yes {% else %} no {% endif %}</p>
-          <p class="card-text" style="margin-bottom: 0rem;">WiFi : {% if i[11] == 1 %} yes {% else %} no {% endif %}</p>
-          <p class="card-text" style="margin-bottom: 0rem;">Air Condition : {% if i[12] == 1 %} yes {% else %} no {% endif %}</p>
-          <p class="card-text" style="margin-bottom: 0rem;">Kitchen : {% if i[14] == 1 %} yes {% else %} no {% endif %}</p>
-          <p class="card-text" style="margin-bottom: 0rem;">Breakfast : {% if i[15] == 1 %} yes {% else %} no {% endif %}</p>
-          <p class="card-text" style="margin-bottom: 0rem;">Elevator : {% if i[16] == 1 %} yes {% else %} no {% endif %}</p>
-          <p class="card-text" style="margin-bottom: 0rem;">Heating : {% if i[17] == 1 %} yes {% else %} no {% endif %}</p>
-          <p class="card-text" style="margin-bottom: 0rem;">Washer : {% if i[18] == 1 %} yes {% else %} no {% endif %}</p>
-          <p class="card-text" style="margin-bottom: 0rem;">Iron : {% if i[19] == 1 %} yes {% else %} no {% endif %}</p>
-          <p class="card-text" style="margin-bottom: 0rem;">Luggage Dropoff : {% if i[20] == 1 %} yes {% else %} no {% endif %}</p>
-          <p class="card-text" style="margin-bottom: 0rem;">Pets : {% if i[21] == 1 %} yes {% else %} no {% endif %}</p>
-          <p class="card-text" style="margin-bottom: 0rem;">Smoking Allowed : {% if i[22] == 1 %} yes {% else %} no {% endif %}</p>
-          <a href='/results?wheelchair={{wheelchair}}&people={{i[2]}}&TV={{i[10]}}&WiFi={{i[11]}}&air_Condition={{i[12]}}&kitchen={{i[14]}}&breakfast={{i[15]}}&elevator={{i[16]}}&heating={{i[17]}}&washer={{i[18]}}&iron={{i[19]}}&luggage={{i[20]}}&smoking={{i[22]}}&maxPrice={{i[6]}}&locationminscores={{i[9]}}&reviewsminscores={{i[8]}}' class="btn btn-outline-primary">Select</a>
-        </div>
-    </div>
-    </div>
-    {% endfor %}
-  {% endif %}
-  </div>
+  <table class="table table-bordered table-sm">
+    <thead>
+      <tr  class="table-primary">
+        <th scope="col">People</th>
+        <th scope="col">WC</th>
+        <th scope="col">Bedrooms</th>
+        <th scope="col">Beds</th>
+        <th scope="col">Daily Price</th>
+        <th scope="col">No. of reviews</th>
+        <th scope="col">Reviews</th>
+        <th scope="col">Location</th>
+        <th scope="col">TV</th>
+        <th scope="col">WiFi</th>
+        <th scope="col">A/C</th>
+        <th scope="col">Kitchen</th>
+        <th scope="col">Breakfast</th>
+        <th scope="col">Elevator</th>
+        <th scope="col">Heating</th>
+        <th scope="col">Washer</th>
+        <th scope="col">Iron</th>
+        <th scope="col">Luggage Dropoff</th>
+        <th scope="col">Pets</th>
+        <th scope="col">Smoking Allowed</th>
+        <th scope="col">Select</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in my_list %}
+        <tr>
+          <td scope="row">{{i[2]}}</td>
+          <td>{{i[3]}}</td>
+          <td>{{i[4]}}</td>
+          <td>{{i[5]}}</td>
+          <td>{{i[6]}}</td>
+          <td>{{i[7]}}</td>
+          <td>{{i[8]}}/100</td>
+          <td>{{i[9]}}/10</td>
+          <td>{% if i[10] == 1 %} yes {% else %} no {% endif %}</td>
+          <td>{% if i[11] == 1 %} yes {% else %} no {% endif %}</td>
+          <td>{% if i[12] == 1 %} yes {% else %} no {% endif %}</td>
+          <td>{% if i[14] == 1 %} yes {% else %} no {% endif %}</td>
+          <td>{% if i[15] == 1 %} yes {% else %} no {% endif %}</td>
+          <td>{% if i[16] == 1 %} yes {% else %} no {% endif %}</td>
+          <td>{% if i[17] == 1 %} yes {% else %} no {% endif %}</td>
+          <td>{% if i[18] == 1 %} yes {% else %} no {% endif %}</td>
+          <td>{% if i[19] == 1 %} yes {% else %} no {% endif %}</td>
+          <td>{% if i[20] == 1 %} yes {% else %} no {% endif %}</td>
+          <td>{% if i[21] == 1 %} yes {% else %} no {% endif %}</td>
+          <td>{% if i[22] == 1 %} yes {% else %} no {% endif %}</td>
+          <td><a href='/results?wheelchair={{wheelchair}}&people={{i[2]}}&TV={{i[10]}}&WiFi={{i[11]}}&air_Condition={{i[12]}}&kitchen={{i[14]}}&breakfast={{i[15]}}&elevator={{i[16]}}&heating={{i[17]}}&washer={{i[18]}}&iron={{i[19]}}&luggage={{i[20]}}&smoking={{i[22]}}&maxPrice={{i[6]}}&locationminscores={{i[9]}}&reviewsminscores={{i[8]}}' class="btn btn-outline-primary">Select</a></td>
+        </tr>
+      {% endfor %}
+    {% endif %}
+    </tbody>
+  </table>
 </body>
 </html>
