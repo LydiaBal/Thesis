@@ -13,6 +13,7 @@ import numpy as np
 app = Flask(__name__)
 
 user = [0,0,0,0,0,0,0,0,0,0,0]
+session = [0]
 @app.route('/', methods=['GET', 'POST'])
 def index():
    for i in range(len(user)):
@@ -34,6 +35,7 @@ def pref():
    counter = f.readline()[0]
    print(counter)
    f.close()
+   session[0] = counter
 
    if int(counter)%2 == 0:
       dataset_name = "resultsdf.csv"
@@ -158,11 +160,12 @@ def questionnaire():
 @app.route('/adios', methods=['POST','GET'])
 def adios():
    acurate = 1
+   double = 0
    user_voting = []
    f = open('counter.txt','r')
    counter = f.readline()[0]
    f.close()
-   if request.args.get('question0') != None and request.args.get('question1') != None and request.args.get('question2') != None and request.args.get('question3') != None and request.args.get('question4') != None and request.args.get('question5') != None and request.args.get('question6') != None and request.args.get('question7') != None and request.args.get('question8') != None :
+   if session[0] == counter and request.args.get('question0') != None and request.args.get('question1') != None and request.args.get('question2') != None and request.args.get('question3') != None and request.args.get('question4') != None and request.args.get('question5') != None and request.args.get('question6') != None and request.args.get('question7') != None and request.args.get('question8') != None :
       user_voting.append(int(counter))
       user_voting.append(int(request.args.get('age')))
       user_voting.append(int(request.args.get('question0')))
@@ -189,12 +192,13 @@ def adios():
       f.write(str(counter))
       f.close()
 
-         
+   elif session[0] != counter:
+      double = 1
          
    else:
       acurate = 0
       
-   return render_template('adios.html', valid = acurate)
+   return render_template('adios.html', valid = acurate, double=double)
 
 
 if __name__ == "__main__":

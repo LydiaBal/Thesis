@@ -20,7 +20,7 @@
         <br>
         <br>
         <br>
-        {% if valid == 1 %}
+        {% if valid == 1 and double == 0%}
         <div class="col d-flex justify-content-center">
             <div class="card text-center" style="width: 29rem;">
                 <div class="card-body">
@@ -30,12 +30,22 @@
             </div>
         </div>
         {% endif %}
-        {% if valid == 0 %}
+        {% if valid == 0 and double == 0%}
         <div class="col d-flex justify-content-center">
             <div class="card text-center" style="width: 29rem;">
                 <div class="card-body">
                   <h5 class="card-title">Milan Apartments Recommendation</h5>
                   <p class="card-text">The questionnaire is not completed please return to the previous page</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if double == 1 %}
+        <div class="col d-flex justify-content-center">
+            <div class="card text-center" style="width: 29rem;">
+                <div class="card-body">
+                  <h5 class="card-title">Milan Apartments Recommendation</h5>
+                  <p class="card-text">You have already completed the questionnaire</p>
                 </div>
             </div>
         </div>
