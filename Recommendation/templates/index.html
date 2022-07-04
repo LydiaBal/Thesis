@@ -67,8 +67,18 @@
   </div>
   </form>
   {% if show_table == 1 %}
-  <h3 align="center">Results: {{my_list|length}}</h3>
+  <h3 align="center">Total results: {{len}}</h3>
   <br>
+  <div style="    display: flex;
+  justify-content: space-between;">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item {% if page==0 %} disabled {% endif %}" ><a class="page-link" href="/pref?People={{thepeople}}&maxPrice={{themaxprice}}&locationminscores={{theminloc}}&reviewsminscores={{theminrev}}&thepage={{page-1}}">Previous</a></li>
+      <li class="page-item {% if stop==1 %} disabled {% endif %}"><a class="page-link" href="/pref?People={{thepeople}}&maxPrice={{themaxprice}}&locationminscores={{theminloc}}&reviewsminscores={{theminrev}}&thepage={{page+1}}">Next</a></li>
+    </ul>
+  </nav>
+  <h6>From: {{page*10}} To: {{(page+1)*10}} </h6>
+  </div>
   <table class="table table-bordered table-sm">
     <thead>
       <tr  class="table-primary">
@@ -121,7 +131,7 @@
           <td><a href='/results?wheelchair={{wheelchair}}&people={{i[2]}}&TV={{i[10]}}&WiFi={{i[11]}}&air_Condition={{i[12]}}&kitchen={{i[14]}}&breakfast={{i[15]}}&elevator={{i[16]}}&heating={{i[17]}}&washer={{i[18]}}&iron={{i[19]}}&luggage={{i[20]}}&smoking={{i[22]}}&maxPrice={{i[6]}}&locationminscores={{i[9]}}&reviewsminscores={{i[8]}}' class="btn btn-outline-primary">Select</a></td>
         </tr>
       {% endfor %}
-    {% endif %}
+      {% endif %}
     </tbody>
   </table>
 </body>

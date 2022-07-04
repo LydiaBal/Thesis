@@ -24,6 +24,8 @@ def index():
 def pref():
    show_ap = []
    table = 0
+   stop = 0
+   count_row=0
    for i in range(len(user)):
       user[i] = 0
    print('Initialization of user array', user)
@@ -44,6 +46,11 @@ def pref():
    theminloc = 5
    theminrev = 50
 
+   if request.args.get('thepage') == None:
+      page = 0
+   else:
+      page = int(request.args.get('thepage'))
+
    if request.args.get('People') != None :
       table = 1
    #Return only those on which filters apply
@@ -57,9 +64,15 @@ def pref():
       dfapartments = dfapartments[dfapartments['review_scores_rating'] >= int(request.args.get('reviewsminscores')) ]
       if(request.args.get('wheelchair') == 'on'):
          dfapartments = dfapartments[dfapartments['Wheelchair_accessible'] == 1 ]
-      show_ap = rec.df_to_array(dfapartments)
+      count_row = dfapartments.shape[0] 
+      get_rows = dfapartments[(10*page):(10*page + 10)]
+      see_if_next = dfapartments[(10*page + 10):(10*page + 11)]
+      show_ap = rec.df_to_array(get_rows)
+      see_next = rec.df_to_array(see_if_next)
+      if len(see_next) == 0:
+         stop = 1
 
-   return render_template("index.html",wheelchair = request.args.get('wheelchair'),  theminrev=theminrev, theminloc=theminloc, themaxprice=themaxprice , thepeople=thepeople,show_table = table, my_list = show_ap)
+   return render_template("index.html",stop=stop, len = count_row,page = page,wheelchair = request.args.get('wheelchair'),  theminrev=theminrev, theminloc=theminloc, themaxprice=themaxprice , thepeople=thepeople,show_table = table, my_list = show_ap)
 
 
 @app.route('/results', methods=['POST','GET'])
