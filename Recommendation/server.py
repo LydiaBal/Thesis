@@ -36,11 +36,8 @@ def pref():
    print(counter)
    f.close()
    session[0] = counter
+   dataset_name = "resultsdf.csv"
 
-   if int(counter)%2 == 0:
-      dataset_name = "resultsdf.csv"
-   else:
-      dataset_name = "processeddf.csv"
 
    dfapartments = pd.read_csv(dataset_name, encoding="ISO-8859-1", na_values="")
    thepeople = 7
@@ -105,53 +102,25 @@ def results():
       user[10] = 1
    print('User list is:', user)
 
-   # Get apartments from skyline
-   f = open('counter.txt')
-   counter = f.readline()[0]
-   f.close()
-
-   if int(counter)%2 == 0:
-      dataset_name = "resultsdf.csv"
-   else:
-      dataset_name = "processeddf.csv"
-
-   dfapartments = pd.read_csv(dataset_name, encoding="ISO-8859-1", na_values="")
-
-   # Get attributes for cosine sim
-   attributesdf = rec.ExtractInfo(dfapartments)
-   attributeslist = rec.df_to_array(attributesdf)
-
-   #  Sort apartments according to user preferences
-   sortedapart = rec.cosineSim(user, attributeslist)
-   sorted_apartments_id = [a_tuple[0] for a_tuple in sortedapart]
-   print(len(sorted_apartments_id))
-
-   dfapartments = dfapartments.set_index('id')
-   dfapartments = dfapartments.reindex(sorted_apartments_id)
-   print('Apartments order', sortedapart)
-
-   #Return only those on which filters apply
-   dfapartments = dfapartments[dfapartments['accommodates'] == int(request.args.get('people')) ]
-   print(dfapartments)
-   dfapartments = dfapartments[dfapartments['daily_price'] <= int(request.args.get('maxPrice')) + 10 ]
-   dfapartments = dfapartments[dfapartments['daily_price'] >= int(request.args.get('maxPrice')) - 10 ]
-   print(dfapartments)
-   dfapartments = dfapartments[dfapartments['review_scores_location'] <= (int(request.args.get('locationminscores')) + 1) ]
-   dfapartments = dfapartments[dfapartments['review_scores_location'] >= (int(request.args.get('locationminscores')) - 1) ]
-   print(dfapartments)
-   dfapartments = dfapartments[dfapartments['review_scores_rating'] >= (int(request.args.get('reviewsminscores')) - 10) ]
-   dfapartments = dfapartments[dfapartments['review_scores_rating'] <= (int(request.args.get('reviewsminscores')) + 10)]
-   print(dfapartments)
-
-   if(request.args.get('wheelchair') == 'on'):
-      dfapartments = dfapartments[dfapartments['Wheelchair_accessible'] == 1 ]
+   people = int(request.args.get('people'))
+   maxprice = int(request.args.get('maxPrice'))
+   minlocscore = int(request.args.get('locationminscores'))
+   minrevscore = int(request.args.get('reviewsminscores'))
+   wheelchair = request.args.get('wheelchair')
 
 
-   #Choose 5 best and get rid of unessecary columns
-   show_ap = rec.df_to_array(dfapartments[0:5])
-   print(show_ap)
-   # dfapartments.to_csv("sortedapartments.csv", index = False)
-   return render_template('results.html', my_list = show_ap)
+   dataset_name_sky = "resultsdf.csv"
+
+   dataset_name_plain = "processeddf.csv"
+
+   dfapartments_sky = pd.read_csv(dataset_name_sky, encoding="ISO-8859-1", na_values="")
+
+   dfapartments_plain = pd.read_csv(dataset_name_plain, encoding="ISO-8859-1", na_values="")
+
+   rec_sky = rec.Recommended(dfapartments_sky, user,people,maxprice, minlocscore, minrevscore, wheelchair)
+   rec_plain = rec.Recommended(dfapartments_plain, user,people,maxprice, minlocscore, minrevscore, wheelchair)
+
+   return render_template('results.html', rec_sky = rec_sky, rec_plain = rec_plain)
 
 @app.route('/questionnaire', methods=['POST','GET'])
 def questionnaire():
@@ -165,7 +134,7 @@ def adios():
    f = open('counter.txt','r')
    counter = f.readline()[0]
    f.close()
-   if session[0] == counter and request.args.get('question0') != None and request.args.get('question1') != None and request.args.get('question2') != None and request.args.get('question3') != None and request.args.get('question4') != None and request.args.get('question5') != None and request.args.get('question6') != None and request.args.get('question7') != None and request.args.get('question8') != None :
+   if session[0] == counter and request.args.get('question0') != None and request.args.get('question1') != None and request.args.get('question2') != None and request.args.get('question3') != None and request.args.get('question4') != None and request.args.get('question5') != None and request.args.get('question6') != None and request.args.get('question7') != None and request.args.get('question8') != None and request.args.get('question9') != None :
       user_voting.append(int(counter))
       user_voting.append(int(request.args.get('age')))
       user_voting.append(int(request.args.get('question0')))
@@ -177,12 +146,13 @@ def adios():
       user_voting.append(int(request.args.get('question6')))
       user_voting.append(int(request.args.get('question7')))
       user_voting.append(int(request.args.get('question8')))
+      user_voting.append(int(request.args.get('question9')))
       print(user_voting)
       try:
          dataset_name = "voted_skyline.csv"
          votes = pd.read_csv(dataset_name, encoding="ISO-8859-1", na_values="")
       except:
-         votes = pd.DataFrame(columns=['number','age','familiarity','mentally_demanding','pace_of_task','satisfaction_choice','satisfaction_rec','searching_effort','discouraged','challenging','not_appealing'])
+         votes = pd.DataFrame(columns=['number','age','familiarity','mentally_demanding','pace_of_task','satisfaction_rec1','satisfaction_rec2','searching_effort','discouraged','not_appealing1','not_appealing2','which_rec'])
       votes.loc[-1] = user_voting
       votes.index = votes.index + 1
       new_votes = votes.sort_index()

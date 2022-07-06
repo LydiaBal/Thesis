@@ -15,13 +15,9 @@
         </div>
     </nav>
     <br>
-    <div style="    display: flex; flex-direction: column; align-items: flex-end;">
-    <h4 style="align-self: center">Recommended apartments according to your choice</h4>
-    <a href="/questionnaire" class="btn btn-primary">Ολοκλήρωση Αναζήτησης</a>
-  </div>
+    <h5 align="center">Below you see the recommended apartments that two different recommenders offer you according to your previous choice. </h5>
     <br>
-    <div class="row row-cols-3 " style="justify-content: space-evenly ;">
-    {% if my_list|length == 0 %}
+    {% if rec_sky|length == 0 %}
     <div class="card" style="width: 18rem;">
       <div class="card-body" style="display: flex; flex-direction:column">
         <h5 class="card-title">Oops! No results found</h5>
@@ -30,36 +26,120 @@
       </div>
     </div>
     {% endif %}
-    {% for i in my_list %}
-    <div class="col" style="display: flex; justify-content: center;">
-    <div class="card border-dark mb-3" style="max-width: 18rem; width: 70%;">
-        <div class="card-header">Apartment</div>
-        <div class="card-body text-dark">
-          <h5 class="card-title">Χαρακτηριστικά</h5>
-          <p class="card-text">People : {{i[1]}}</p>
-          <p class="card-text">Bathrooms: {{i[2]}}</p>
-          <p class="card-text">Bedrooms : {{i[3]}}</p>
-          <p class="card-text">Beds : {{i[4]}}</p>
-          <p class="card-text">Daily Price : {{i[5]}}</p>
-          <p class="card-text">Number of Reviews : {{i[6]}}</p>
-          <p class="card-text">Reviews Score : {{i[7]}}/100</p>
-          <p class="card-text">Location Score : {{i[8]}}/10</p>
-          <p class="card-text">TV : {% if i[9] == 1 %} yes {% else %} no {% endif %}</p>
-          <p class="card-text">WiFi : {% if i[10] == 1 %} yes {% else %} no {% endif %}</p>
-          <p class="card-text">Air Condition : {% if i[11] == 1 %} yes {% else %} no {% endif %}</p>
-          <p class="card-text">Kitchen : {% if i[13] == 1 %} yes {% else %} no {% endif %}</p>
-          <p class="card-text">Breakfast : {% if i[14] == 1 %} yes {% else %} no {% endif %}</p>
-          <p class="card-text">Elevator : {% if i[15] == 1 %} yes {% else %} no {% endif %}</p>
-          <p class="card-text">Heating : {% if i[16] == 1 %} yes {% else %} no {% endif %}</p>
-          <p class="card-text">Washer : {% if i[17] == 1 %} yes {% else %} no {% endif %}</p>
-          <p class="card-text">Iron : {% if i[18] == 1 %} yes {% else %} no {% endif %}</p>
-          <p class="card-text">Luggage Dropoff : {% if i[19] == 1 %} yes {% else %} no {% endif %}</p>
-          <p class="card-text">Pets : {% if i[20] == 1 %} yes {% else %} no {% endif %}</p>
-          <p class="card-text">Smoking Allowed : {% if i[21] == 1 %} yes {% else %} no {% endif %}</p>
-        </div>
+    {% if rec_sky|length != 0 %}
+    <h4 align="center">Recommender 1</h4>
+    <br>
+    <table align="center" class="table table-bordered table-sm" style="width: 10em;">
+      <thead>
+        <tr  class="table-primary">
+          <th scope="col">People</th>
+          <th scope="col">WC</th>
+          <th scope="col">Bedrooms</th>
+          <th scope="col">Beds</th>
+          <th scope="col">Daily Price</th>
+          <th scope="col">No. of reviews</th>
+          <th scope="col">Reviews</th>
+          <th scope="col">Location</th>
+          <th scope="col">TV</th>
+          <th scope="col">WiFi</th>
+          <th scope="col">A/C</th>
+          <th scope="col">Kitchen</th>
+          <th scope="col">Breakfast</th>
+          <th scope="col">Elevator</th>
+          <th scope="col">Heating</th>
+          <th scope="col">Washer</th>
+          <th scope="col">Iron</th>
+          <th scope="col">Luggage Dropoff</th>
+          <th scope="col">Pets</th>
+          <th scope="col">Smoking Allowed</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in rec_sky %}
+          <tr>
+            <td scope="row">{{i[1]}}</td>
+            <td>{{i[2]}}</td>
+            <td>{{i[3]}}</td>
+            <td>{{i[4]}}</td>
+            <td>{{i[5]}}</td>
+            <td>{{i[6]}}</td>
+            <td>{{i[7]}}/100</td>
+            <td>{{i[8]}}/10</td>
+            <td>{% if i[9] == 1 %} yes {% else %} no {% endif %}</td>
+            <td>{% if i[10] == 1 %} yes {% else %} no {% endif %}</td>
+            <td>{% if i[11] == 1 %} yes {% else %} no {% endif %}</td>
+            <td>{% if i[13] == 1 %} yes {% else %} no {% endif %}</td>
+            <td>{% if i[14] == 1 %} yes {% else %} no {% endif %}</td>
+            <td>{% if i[15] == 1 %} yes {% else %} no {% endif %}</td>
+            <td>{% if i[16] == 1 %} yes {% else %} no {% endif %}</td>
+            <td>{% if i[17] == 1 %} yes {% else %} no {% endif %}</td>
+            <td>{% if i[18] == 1 %} yes {% else %} no {% endif %}</td>
+            <td>{% if i[19] == 1 %} yes {% else %} no {% endif %}</td>
+            <td>{% if i[20] == 1 %} yes {% else %} no {% endif %}</td>
+            <td>{% if i[21] == 1 %} yes {% else %} no {% endif %}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <br>
+    <h4 align="center">Recommender 2</h4>
+    <br>
+    <table align="center" class="table table-bordered table-sm" style="width: 10em;">
+      <thead>
+        <tr  class="table-primary">
+          <th scope="col">People</th>
+          <th scope="col">WC</th>
+          <th scope="col">Bedrooms</th>
+          <th scope="col">Beds</th>
+          <th scope="col">Daily Price</th>
+          <th scope="col">No. of reviews</th>
+          <th scope="col">Reviews</th>
+          <th scope="col">Location</th>
+          <th scope="col">TV</th>
+          <th scope="col">WiFi</th>
+          <th scope="col">A/C</th>
+          <th scope="col">Kitchen</th>
+          <th scope="col">Breakfast</th>
+          <th scope="col">Elevator</th>
+          <th scope="col">Heating</th>
+          <th scope="col">Washer</th>
+          <th scope="col">Iron</th>
+          <th scope="col">Luggage Dropoff</th>
+          <th scope="col">Pets</th>
+          <th scope="col">Smoking Allowed</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in rec_plain %}
+          <tr>
+            <td scope="row">{{i[1]}}</td>
+            <td>{{i[2]}}</td>
+            <td>{{i[3]}}</td>
+            <td>{{i[4]}}</td>
+            <td>{{i[5]}}</td>
+            <td>{{i[6]}}</td>
+            <td>{{i[7]}}/100</td>
+            <td>{{i[8]}}/10</td>
+            <td>{% if i[9] == 1 %} yes {% else %} no {% endif %}</td>
+            <td>{% if i[10] == 1 %} yes {% else %} no {% endif %}</td>
+            <td>{% if i[11] == 1 %} yes {% else %} no {% endif %}</td>
+            <td>{% if i[13] == 1 %} yes {% else %} no {% endif %}</td>
+            <td>{% if i[14] == 1 %} yes {% else %} no {% endif %}</td>
+            <td>{% if i[15] == 1 %} yes {% else %} no {% endif %}</td>
+            <td>{% if i[16] == 1 %} yes {% else %} no {% endif %}</td>
+            <td>{% if i[17] == 1 %} yes {% else %} no {% endif %}</td>
+            <td>{% if i[18] == 1 %} yes {% else %} no {% endif %}</td>
+            <td>{% if i[19] == 1 %} yes {% else %} no {% endif %}</td>
+            <td>{% if i[20] == 1 %} yes {% else %} no {% endif %}</td>
+            <td>{% if i[21] == 1 %} yes {% else %} no {% endif %}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+    <div style="display: flex; justify-content: center;">
+    <a align="center" href="/questionnaire" class="btn btn-primary">Search completed</a>
     </div>
-    </div>
-    {% endfor %}
-</div>
+    <br>
 </body>
 </html>

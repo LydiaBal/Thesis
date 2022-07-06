@@ -26,6 +26,37 @@ def ExtractInfo(df):
 
     return df
 
+def Recommended(dfapartments, user,people,maxprice, minlocscore, minrevscore, wheelchair):
+    # Get attributes for cosine sim
+   attributesdf = ExtractInfo(dfapartments)
+   attributeslist = df_to_array(attributesdf)
+
+   #  Sort apartments according to user preferences
+   sortedapart = cosineSim(user, attributeslist)
+   sorted_apartments_id = [a_tuple[0] for a_tuple in sortedapart]
+
+   dfapartments = dfapartments.set_index('id')
+   dfapartments = dfapartments.reindex(sorted_apartments_id)
+
+   #Return only those on which filters apply
+   dfapartments = dfapartments[dfapartments['accommodates'] == people ]
+
+   dfapartments = dfapartments[dfapartments['daily_price'] <= (maxprice + 10) ]
+   dfapartments = dfapartments[dfapartments['daily_price'] >= (maxprice - 10) ]
+
+   dfapartments = dfapartments[dfapartments['review_scores_location'] <= (minlocscore + 1) ]
+   dfapartments = dfapartments[dfapartments['review_scores_location'] >= (minlocscore - 1) ]
+
+   dfapartments = dfapartments[dfapartments['review_scores_rating'] >= (minrevscore - 10) ]
+   dfapartments = dfapartments[dfapartments['review_scores_rating'] <= (minrevscore + 10)]
+
+
+   if(wheelchair == 'on'):
+      dfapartments = dfapartments[dfapartments['Wheelchair_accessible'] == 1 ]
+
+   #Choose 5 best and get rid of unessecary columns
+   return df_to_array(dfapartments[0:5])
+
 #function to transform a dataframe into a list of lists
 def df_to_array(df):
     data = []
