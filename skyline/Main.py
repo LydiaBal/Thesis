@@ -11,9 +11,6 @@ if __name__== "__main__":
     #preprocess dataframe
     processeddf = prec.ApartmentsPreprocess(dfapart)
 
-    # print (processeddf.head())
-    # print (processeddf.tail())
-
     print ("Header i want in total = ", list(processeddf))
     headers = list(processeddf)
     print(len(list(processeddf)))
@@ -23,13 +20,6 @@ if __name__== "__main__":
     finalsky = []
     for i in range(1,13):
         processeddfsky = prec.SkylinePreprocess(processeddf,i)
-
-    # print (processeddfsky.head())
-    # print (processeddfsky.tail())
-
-        # print ("Header i want for sky = ", list(processeddfsky))
-        # headers = list(processeddfsky)
-        # print(len(list(processeddfsky)))
 
     # transform dataframe to list of lists
         data = prec.df_to_array(processeddfsky)
