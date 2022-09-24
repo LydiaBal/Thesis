@@ -5,5 +5,5 @@ Tool that was constructed for the needs of my thesis in NTUA titled **Skyline Re
 - For the skyline algorithm: navigate to /skyline and run `python Main.py `
 - For the website/tool: Navigate to /Recommendation and run `python server.py`
 
-##Demonstration
-[Thesis Project] (https://www.youtube.com/watch?v=PiCxrZUdXyU)
+###Demonstration
+[Thesis Project](https://www.youtube.com/watch?v=PiCxrZUdXyU)
